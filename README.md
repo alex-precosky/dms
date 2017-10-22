@@ -15,8 +15,6 @@ Gustavo Nobrega (gustavofn@gmail.com)
 
 TODO
 
-
-
 ## Requirements
 
 Node.js version +5
@@ -36,32 +34,27 @@ cd dms
 npm install
 ```
 
-In another terminal window, run:
+Open a second terminal window and execute testrpc and leave the window opened. At this point you should copy the mnemonic seed and configure your Metamask to access the accounts.
+```
 testrpm
+```
 
+At the first terminal window, where you ran npm install, execute the following commands. It will compile the smart contract and migrate to our blockchain
+```
 truffle compile
 truffle migrate
+```
+
+If everthing went well (you can see a few log lines at testrpc output) you can start the dApp
+```
 npm run dev
-
-## Building and the frontend
-
-1. First run `truffle compile`, then run `truffle migrate` to deploy the contracts onto your network of choice (default "development").
-1. Then run `npm run dev` to build the app and serve it on http://localhost:8080
-
-## Possible upgrades
-
-* Use the webpack hotloader to sense when contracts or javascript have been recompiled and rebuild the application. Contributions welcome!
-
-## Common Errors
-
-* **Error: Can't resolve '../build/contracts/MetaCoin.json'**
-
-This means you haven't compiled or migrated your contracts yet. Run `truffle compile` and `truffle migrate` first.
-
-Full error:
-
 ```
-ERROR in ./app/main.js
-Module not found: Error: Can't resolve '../build/contracts/MetaCoin.json' in '/Users/tim/Documents/workspace/Consensys/test3/app'
- @ ./app/main.js 11:16-59
+
+Now you should see these folling lines
 ```
+Project is running at http://localhost:8080/
+...
+webpack: Compiled successfully.
+```
+
+Go to your web browser and access the accress http://localhost:8080/create.html to create and deploy the smart contract.
