@@ -4,12 +4,12 @@ This is a simple project implementing Dead Man's Swtich at Ethereum Blockchain f
 
 ## Our Team
 
-Alex Precosky (precosky@mac.com)
-Anthony Tsui (anthony.tsui@gmail.com)
-Bassem El-Remesh (bassem.remesh@gmail.com)
-Erik Cartman (welsh4568@gmail.com)
-Gustavo Nobrega (gustavofn@gmail.com)
-Phillip B (phillipb163@gmail.com)
+* Alex Precosky (precosky@mac.com)
+* Anthony Tsui (anthony.tsui@gmail.com)
+* Bassem El-Remesh (bassem.remesh@gmail.com)
+* Erik Cartman (welsh4568@gmail.com)
+* Gustavo Nobrega (gustavofn@gmail.com)
+* Phillip B (phillipb163@gmail.com)
 
 ## What it is?
 
