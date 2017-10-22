@@ -36,7 +36,7 @@ npm install
 
 Open a second terminal window and execute testrpc and leave the window opened. At this point you should copy the mnemonic seed and configure your Metamask to access the accounts.
 ```
-testrpm
+testrpc
 ```
 
 At the first terminal window, where you ran npm install, execute the following commands. It will compile the smart contract and migrate to our blockchain
