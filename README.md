@@ -58,3 +58,5 @@ webpack: Compiled successfully.
 ```
 
 Go to your web browser and access the accress http://localhost:8080/create.html to create and deploy the smart contract.
+ 
+Done!
