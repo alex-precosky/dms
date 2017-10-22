@@ -3,22 +3,25 @@
 <head>
   <title>Deadman Switch</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
 </head>
 <body>
   <h1>Deadman Switch</h1>
   <h2>Input the sender's address to read their secret upon their death</h2>
+  <input type="text" id="sender" /><button id="send" onclick="App.readMessage()">Read</button>
 
-  <br><br><button id="send" >Read</button>
-
-  <div id="message">
+  <div>
     <h3>Message</h3>
-    <textarea>
+    <textarea id="message">
       {{This is the secret}}
     </textarea>
     <br />
-    <b>Last Heartbeat</b> 20:20:00UTC
+    <b>Last Heartbeat:</b> <span id="heartbeat"></span>
   </div>
-  <br><br>
+  
+  <br>
+  <b>TimeLeft</b><span id="timeleft"></span>
+  <br>
   <span id="status"></span>
   <br>
 </body>

@@ -2,7 +2,7 @@
 import "../stylesheets/app.css";
 
 // Import libraries we need.
-import { default as Web3} from 'web3';
+import { default as Web3 } from 'web3';
 import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
@@ -20,7 +20,7 @@ var accounts;
 var account;
 
 window.App = {
-  start: function() {
+  start: function () {
     var self = this;
 
     // Bootstrap the MetaCoin abstraction for Use.
@@ -28,7 +28,7 @@ window.App = {
     DMSContract.setProvider(web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
-    web3.eth.getAccounts(function(err, accs) {
+    web3.eth.getAccounts(function (err, accs) {
       if (err != null) {
         alert("There was an error fetching your accounts.");
         return;
@@ -42,100 +42,148 @@ window.App = {
       accounts = accs;
       account = accounts[0];
 
-       	var timeleft_element = document.getElementById("timeleft");
-       	timeleft_element.innerHTML = "(Accessing...) ";
+      var timeleft_element = document.getElementById("timeleft");
+      timeleft_element.innerHTML = "(Accessing...) ";
       self.refreshTimeLeft();
     });
   },
 
-  setStatus: function(message) {
+  setStatus: function (message) {
     var status = document.getElementById("status");
     status.innerHTML = message;
   },
 
-  refreshTimeLeft: function() {
-      var self = this;
-      var DMS;
+  refreshTimeLeft: function () {
+    var self = this;
+    var DMS;
+    var timeleft_element = document.getElementById("timeleft");
+
+
+    DMSContract.deployed().then(function (instance) {
+      DMS = instance;
+      timeleft_element.innerHTML = "hi";
+      return DMS.getExpirationTime.call();
+    }).then(function (value) {
       var timeleft_element = document.getElementById("timeleft");
+      timeleft_element.innerHTML = value.valueOf();
+    }).catch(function (e) {
+      console.log(e);
+      self.setStatus(e);
+    });
 
-
-       DMSContract.deployed().then(function(instance) {
-       	  DMS = instance;
-	   timeleft_element.innerHTML = "hi";
-       	  return DMS.getExpirationTime.call();}).then(function(value) {
-       	      var timeleft_element = document.getElementById("timeleft");
-       	      timeleft_element.innerHTML = value.valueOf();
-       	      }).catch(function(e) {
-       		  console.log(e);
-       		  self.setStatus(e);
-       		  });
-	      
   },
 
 
-    
-    tick: function() {
-	var self = this;
+
+  tick: function () {
+    var self = this;
 
     var DMS;
-    DMSContract.deployed().then(function(instance) {
+    DMSContract.deployed().then(function (instance) {
       DMS = instance;
-      return DMS.tick( {from: account});
-    }).then(function() {
+      return DMS.tick({ from: account });
+    }).then(function () {
       self.setStatus("Tick complete!");
-	self.refreshTimeLeft();
-    }).catch(function(e) {
+      self.refreshTimeLeft();
+    }).catch(function (e) {
       console.log(e);
       self.setStatus(e);
     });
-  
-
-},
 
 
-    kick: function() {
-	var self = this;
+  },
+
+
+  kick: function () {
+    var self = this;
 
     var DMS;
-    DMSContract.deployed().then(function(instance) {
+    DMSContract.deployed().then(function (instance) {
       DMS = instance;
-      return DMS.kick( Date.now() + 30, {from: account});
-    }).then(function() {
+      return DMS.kick(Date.now() + 30, { from: account });
+    }).then(function () {
       self.setStatus("Kick complete!");
-	self.refreshTimeLeft();
-    }).catch(function(e) {
+      self.refreshTimeLeft();
+    }).catch(function (e) {
       console.log(e);
       self.setStatus(e);
     });
-  
 
-},
 
-    updateDeathContract: function()
-    {
-	var self = this;
-	
-	var beneficiary = document.getElementById("beneficiary").value;
-	var data = document.getElementById("data").value;
+  },
 
-	var dms;
+  updateDeathContract: function () {
+    var self = this;
 
-    DMSContract.deployed().then(function(instance) {
+    var beneficiary = document.getElementById("beneficiary").value;
+    var data = document.getElementById("data").value;
+
+    var dms;
+
+    DMSContract.deployed().then(function (instance) {
       dms = instance;
-      return dms.CreateDMSContract(beneficiary, data, Date.now(), {from: account});
-    }).then(function() {
+      return dms.CreateDMSContract(beneficiary, data, Date.now(), { from: account });
+    }).then(function () {
       self.setStatus("Transaction complete!");
 
-    }).catch(function(e) {
+    }).catch(function (e) {
       console.log(e);
       self.setStatus(e);
     });
-  
+  },
 
-    },
-    
+  readMessage: function () {
+    console.log("readmessage");
+    var self = this;
+    var sender = document.getElementById("sender").value;
 
-  sendCoin: function() {
+    self.getLastHeartbeat(sender);
+    self.getMessage(sender);
+
+  },
+
+  getMessage: function (sender) {
+    var self = this;
+    var DMS;
+    var message_element = document.getElementById("message");
+    console.log("getMessage for " + sender);
+    DMSContract.deployed().then(function (instance) {
+      DMS = instance;
+      console.log("resolved contract instance getMessage");
+      return DMS.getDataFromAddress.call(sender);
+    }).then(function (value) {
+      console.log("resolved getDataFromAddress");
+      message_element.innerHTML = web3.toAscii(value.valueOf());
+    }).catch(function (e) {
+      console.log("catch getDataFromAddress");
+      console.log(e);
+      self.setStatus(e);
+    });
+  },
+
+  getLastHeartbeat: function (sender) {
+    var self = this;
+    var DMS;
+    var heatbeat_time_element = document.getElementById("heartbeat");
+    console.log("getLastHeartbeat for " + sender);
+    DMSContract.deployed().then(function (instance) {
+      console.log("getLastHeartbeat resolved contract instance");
+      DMS = instance;
+      return DMS.getExpirationTime.call(sender);
+    }).then(function (value) {
+      console.log("resolved getExpirationTime");
+      var lastHeartbeat = new Date(value * 1000);
+      console.log(lastHeartbeat);
+      heatbeat_time_element = document.getElementById("heartbeat");
+      heatbeat_time_element.innerHTML = lastHeartbeat.toString();;
+    }).catch(function (e) {
+      console.log("catch getExpirationTime");
+      console.log(e);
+      self.setStatus(e);
+    });
+  },
+
+  sendCoin: function () {
     var self = this;
 
     var amount = parseInt(document.getElementById("amount").value);
@@ -144,20 +192,22 @@ window.App = {
     this.setStatus("Initiating transaction... (please wait)");
 
     var meta;
-    MetaCoin.deployed().then(function(instance) {
+    MetaCoin.deployed().then(function (instance) {
       meta = instance;
-      return meta.sendCoin(receiver, amount, {from: account});
-    }).then(function() {
+      return meta.sendCoin(receiver, amount, { from: account });
+    }).then(function () {
       self.setStatus("Transaction complete!");
 
-    }).catch(function(e) {
+    }).catch(function (e) {
       console.log(e);
       self.setStatus("Error sending coin; see log.");
     });
   }
 };
 
-window.addEventListener('load', function() {
+
+
+window.addEventListener('load', function () {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
   if (typeof web3 !== 'undefined') {
     console.warn("Using web3 detected from external source. If you find that your accounts don't appear or you have 0 MetaCoin, ensure you've configured that source properly. If using MetaMask, see the following link. Feel free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask")

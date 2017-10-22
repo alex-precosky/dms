@@ -6,11 +6,9 @@ import { default as Web3 } from 'web3';
 import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
-import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
 import DMSContract_artifacts from '../../build/contracts/DMSContract.json'
 
 // MetaCoin is our usable abstraction, which we'll use through the code below.
-var MetaCoin = contract(metacoin_artifacts);
 var DMSContract = contract(DMSContract_artifacts)
 
 // The following code is simple to show off interacting with your contracts.
@@ -46,11 +44,12 @@ window.App = {
 
     DMSContract.deployed().then(function (instance) {
       DMS = instance;
-      return DMS.getExpiration.call(sender);
+      return DMS.getExpirationTime.call(sender);
     }).then(function (value) {
       // @TODO convert unix timestamp to human time
+      lastHeartbeat = new Date( value * 1000 )
       heatbeat_time_element = document.getElementById("heartbeat");
-      heatbeat_time_element.innerHTML = value.valueOf();
+      heatbeat_time_element.value = lastHeartbeat.format("dd.mm.yyyy hh:MM:ss");;
     }).catch(function (e) {
       console.log(e);
       self.setStatus(e);
@@ -64,7 +63,7 @@ window.App = {
 
     DMSContract.deployed().then(function (instance) {
       DMS = instance;
-      return DMS.getTimeLeftForSender.call();
+      return DMS.getDataFromAddress.call();
     }).then(function (value) {
       message_element.innerHTML = web3.toAscii(value.valueOf());
     }).catch(function (e) {
