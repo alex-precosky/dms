@@ -4,18 +4,26 @@ This is a simple project implementing Dead Man's Swtich at Ethereum Blockchain f
 
 ## Our Team
 
-Anthony Tsui (anthony.tsui@gmail.com)
-Erik Cartman (welsh4568@gmail.com)
 Alex Precosky (precosky@mac.com)
+Anthony Tsui (anthony.tsui@gmail.com)
 Bassem El-Remesh (bassem.remesh@gmail.com)
-Phillip B (phillipb163@gmail.com)
+Erik Cartman (welsh4568@gmail.com)
 Gustavo Nobrega (gustavofn@gmail.com)
+Phillip B (phillipb163@gmail.com)
 
-## Our objective
+## What it is?
 
-TODO
+A dead man's switch is a switch that is automatically operated if the human operator becomes incapacitated, such as through death, loss of consciousness, or being bodily removed from control. Originally applied to switches on a vehicle or machine, it has since come to be used to describe other intangible uses like in computer software.
 
-## Flowchart
+Software versions of dead man's switches are generally only used by people with technical expertise, and can serve several purposes; such as sending a notification to friends or deleting and encrypting data. The "non-event" triggering these can be almost anything, such as failing to log in for 7 consecutive days, not responding to an automated e-mail, ping, a GPS-enabled telephone not moving for a period of time, or merely failing to type a code within a few minutes of a computer's boot. An example of a software based dead man's switch is a Dead Man's Switch which starts when the computer boots up and can encrypt or delete user specified data if an unauthorised user should ever gain access to the protected computer. Google's Inactive Account Manager allows the account holder to nominate someone else to access their services if not used for an extended period.
+
+Source: https://en.wikipedia.org/wiki/Dead_man%27s_switch
+
+## How it will work here?
+
+Basically we created an smart contract on Ethereum Blockchain that a trustor will attach a secret information and sign the contract with his private key. This contract will expire eventually in some point of time in future. The trustor have to interact with our dApp to inform he is alive and so his secret remains protect. If in case the trustor do not interact with the dApp we assume he's dead so the smart contract will expire. In that event, anyone with the trustor public address can recover his secret.
+
+### Flowchart
 
 ![Dead Man's Switch Flowchart](https://github.com/deadmenswitch/dms/blob/master/flowchart/dms_flowchart.png?raw=true)
 
