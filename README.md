@@ -1,9 +1,43 @@
-# truffle-init-webpack
-Example webpack project with Truffle. Includes contracts, migrations, tests, user interface and webpack build pipeline.
+# Dead Man's Switch project to 
 
-## Usage
+This is a simple project implementing Dead Man's Swtich at Ethereum Blockchain for the event Decentralized Database Hackathon promoted by BLUZELLE at Launch Academy, Vancouver BC.
+
+## Our Team:
+
+Anthony Tsui (anthony.tsui@gmail.com)
+Erik Cartman (welsh4568@gmail.com)
+Alex Precosky (precosky@mac.com)
+Bassem El-Remesh (bassem.remesh@gmail.com)
+Phillip B (phillipb163@gmail.com)
+Gustavo Nobrega (gustavofn@gmail.com)
+
+## Our objective:
+
+TODO
+
+
+
+## Requirements
+
+Node.js version +5
+
+## Installation
+
+Install testrpc
+```
+npm install -g ethereumjs-testrpc
+```
 
 git clone https://github.com/deadmenswitch/dms.git
+cd dms
+npm install
+
+In another terminal window, run:
+testrpm
+
+truffle compile
+truffle migrate
+npm run dev
 
 ## Building and the frontend
 
