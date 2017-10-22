@@ -2,7 +2,7 @@
 
 This is a simple project implementing Dead Man's Swtich at Ethereum Blockchain for the event Decentralized Database Hackathon promoted by BLUZELLE at Launch Academy, Vancouver BC.
 
-## Our Team:
+## Our Team
 
 Anthony Tsui (anthony.tsui@gmail.com)
 Erik Cartman (welsh4568@gmail.com)
@@ -11,9 +11,13 @@ Bassem El-Remesh (bassem.remesh@gmail.com)
 Phillip B (phillipb163@gmail.com)
 Gustavo Nobrega (gustavofn@gmail.com)
 
-## Our objective:
+## Our objective
 
 TODO
+
+## Flowchart
+
+![Dead Man's Switch Flowchart](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
 
 ## Requirements
 
