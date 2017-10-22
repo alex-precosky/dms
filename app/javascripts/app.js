@@ -7,9 +7,11 @@ import { default as contract } from 'truffle-contract'
 
 // Import our contract artifacts and turn them into usable abstractions.
 import metacoin_artifacts from '../../build/contracts/MetaCoin.json'
+import DMSContract_artifacts from '../../build/contracts/DMSContract.json'
 
 // MetaCoin is our usable abstraction, which we'll use through the code below.
 var MetaCoin = contract(metacoin_artifacts);
+var DMSContract = contract(DMSContract_artifacts)
 
 // The following code is simple to show off interacting with your contracts.
 // As your needs grow you will likely need to change its form and structure.
@@ -23,6 +25,7 @@ window.App = {
 
     // Bootstrap the MetaCoin abstraction for Use.
     MetaCoin.setProvider(web3.currentProvider);
+    DMSContract.setProvider(web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
     web3.eth.getAccounts(function(err, accs) {
@@ -39,7 +42,9 @@ window.App = {
       accounts = accs;
       account = accounts[0];
 
-      self.refreshBalance();
+       	var timeleft_element = document.getElementById("timeleft");
+       	timeleft_element.innerHTML = "(Accessing...) ";
+      self.refreshTimeLeft();
     });
   },
 
@@ -48,21 +53,87 @@ window.App = {
     status.innerHTML = message;
   },
 
-  refreshBalance: function() {
-    var self = this;
+  refreshTimeLeft: function() {
+      var self = this;
+      var DMS;
+      var timeleft_element = document.getElementById("timeleft");
 
-    var meta;
-    MetaCoin.deployed().then(function(instance) {
-      meta = instance;
-      return meta.getBalance.call(account, {from: account});
-    }).then(function(value) {
-      var balance_element = document.getElementById("balance");
-      balance_element.innerHTML = value.valueOf();
+
+       DMSContract.deployed().then(function(instance) {
+       	  DMS = instance;
+	   timeleft_element.innerHTML = "hi";
+       	  return DMS.getTimeLeft.call();}).then(function(value) {
+       	      var timeleft_element = document.getElementById("timeleft");
+       	      timeleft_element.innerHTML = value.valueOf();
+       	      }).catch(function(e) {
+       		  console.log(e);
+       		  self.setStatus(e);
+       		  });
+	      
+  },
+
+
+    
+    tick: function() {
+	var self = this;
+
+    var DMS;
+    DMSContract.deployed().then(function(instance) {
+      DMS = instance;
+      return DMS.tick( {from: account});
+    }).then(function() {
+      self.setStatus("Tick complete!");
+	self.refreshTimeLeft();
     }).catch(function(e) {
       console.log(e);
-      self.setStatus("Error getting balance; see log.");
+      self.setStatus(e);
     });
-  },
+  
+
+},
+
+
+    kick: function() {
+	var self = this;
+
+    var DMS;
+    DMSContract.deployed().then(function(instance) {
+      DMS = instance;
+      return DMS.kick( {from: account});
+    }).then(function() {
+      self.setStatus("Kick complete!");
+	self.refreshTimeLeft();
+    }).catch(function(e) {
+      console.log(e);
+      self.setStatus(e);
+    });
+  
+
+},
+
+    updateDeathContract: function()
+    {
+	var self = this;
+	
+	var beneficiary = document.getElementById("beneficiary").value;
+	var data = document.getElementById("data").value;
+
+	var dms;
+
+    DMSContract.deployed().then(function(instance) {
+      dms = instance;
+      return dms.CreateDMSContract(beneficiary, data, {from: account});
+    }).then(function() {
+      self.setStatus("Transaction complete!");
+
+    }).catch(function(e) {
+      console.log(e);
+      self.setStatus(e);
+    });
+  
+
+    },
+    
 
   sendCoin: function() {
     var self = this;
@@ -78,7 +149,7 @@ window.App = {
       return meta.sendCoin(receiver, amount, {from: account});
     }).then(function() {
       self.setStatus("Transaction complete!");
-      self.refreshBalance();
+
     }).catch(function(e) {
       console.log(e);
       self.setStatus("Error sending coin; see log.");
