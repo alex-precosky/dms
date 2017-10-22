@@ -2,19 +2,18 @@
 <html>
 <head>
   <title>Dead Man's Switch</title>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='app.css' rel='stylesheet' type='text/css'>
   <script src="./app.js"></script>
 </head>
 
 <body>
-  <h1>Dead Man's Switch</h1>
+  <img src="dmslogo.png">
   <h2>Register an entry in the death contract</h2>
-
   <br>
+
   <br><label for="beneficiary">Beneficiary:</label><input type="text" id="beneficiary" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
   <br><label for="data">My Data:</label><input type="text" id="data" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
   <br><br><button id="send" onclick="App.updateDeathContract()">Update contract</button>
-
   <br><br>
   <span id="status"></span>
   <br>
