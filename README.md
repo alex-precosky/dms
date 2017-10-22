@@ -1,4 +1,4 @@
-# Dead Man's Switch project to 
+# Dead Man's Switch
 
 This is a simple project implementing Dead Man's Swtich at Ethereum Blockchain for the event Decentralized Database Hackathon promoted by BLUZELLE at Launch Academy, Vancouver BC.
 
@@ -23,14 +23,18 @@ Node.js version +5
 
 ## Installation
 
-Install testrpc
+Install testrpc and truffle
 ```
 npm install -g ethereumjs-testrpc
+npm install -g truffle
 ```
 
+Then clone this project and install the node dependencies
+```
 git clone https://github.com/deadmenswitch/dms.git
 cd dms
 npm install
+```
 
 In another terminal window, run:
 testrpm
