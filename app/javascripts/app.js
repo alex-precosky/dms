@@ -149,7 +149,7 @@ window.App = {
     DMSContract.deployed().then(function (instance) {
       DMS = instance;
       console.log("resolved contract instance getMessage");
-      return DMS.getDataFromAddress.call(sender);
+      return DMS.getDataFromAddress.call(sender, {from: account});
     }).then(function (value) {
       console.log("resolved getDataFromAddress");
       message_element.innerHTML = web3.toAscii(value.valueOf());
@@ -181,6 +181,45 @@ window.App = {
       console.log(e);
       self.setStatus(e);
     });
+  },
+
+check: function() {
+      var self = this;
+      var DMS;
+
+      var check_element = document.getElementById("checkmessage");
+      var secret_element = document.getElementById("secret");
+      var sender = document.getElementById("sender").value;
+      var dead = false;
+
+       DMSContract.deployed().then(function(instance) {
+          DMS = instance;
+
+           return DMS.isAddressExpired.call(sender, Date.now()/1000);}).then(function(value) {
+              if(value.valueOf() == true)
+              {
+                  check_element.innerHTML = "Sorry they are dead! Their secret is:";
+
+                          return DMS.getDataFromAddress.call(sender, {from: account}) .then(function(value) {
+              var secret_string = value.valueOf();
+              secret_element.innerHTML = web3.utils.toAscii(secret_string);
+
+              }).catch(function(e) {
+                  console.log(e);
+                  self.setStatus(e);
+                  });
+              }
+
+              else
+               {
+                  check_element.innerHTML = "Alive!";
+                   secret_element.innerHTML = "";
+               }
+
+              }).catch(function(e) {
+                  console.log(e);
+                  self.setStatus(e);
+                  });
   },
 
   sendCoin: function () {
