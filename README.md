@@ -72,3 +72,8 @@ webpack: Compiled successfully.
 Go to your web browser and access the accress http://localhost:8080/create.html to create and deploy the smart contract.
  
 Done!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
