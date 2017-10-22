@@ -59,18 +59,17 @@ window.App = {
     var timeleft_element = document.getElementById("timeleft");
 
 
-    DMSContract.deployed().then(function (instance) {
-      DMS = instance;
-      timeleft_element.innerHTML = "hi";
-      return DMS.getExpirationTime.call();
-    }).then(function (value) {
-      var timeleft_element = document.getElementById("timeleft");
-      timeleft_element.innerHTML = value.valueOf();
-    }).catch(function (e) {
-      console.log(e);
-      self.setStatus(e);
-    });
-
+       DMSContract.deployed().then(function(instance) {
+       	  DMS = instance;
+	   timeleft_element.innerHTML = "hi";
+       	  return DMS.getExpirationTime.call();}).then(function(value) {
+       	      var timeleft_element = document.getElementById("timeleft");
+	      var d = new Date(value.valueOf()*1000);
+       	      timeleft_element.innerHTML = d.toString();
+       	      }).catch(function(e) {
+       		  console.log(e);
+       		  self.setStatus(e);
+       		  });
   },
 
 
@@ -100,8 +99,8 @@ window.App = {
     var DMS;
     DMSContract.deployed().then(function (instance) {
       DMS = instance;
-      return DMS.kick(Date.now() + 30, { from: account });
-    }).then(function () {
+      return DMS.kick( Date.now()/1000 + 30, {from: account});
+    }).then(function() {
       self.setStatus("Kick complete!");
       self.refreshTimeLeft();
     }).catch(function (e) {
@@ -122,8 +121,8 @@ window.App = {
 
     DMSContract.deployed().then(function (instance) {
       dms = instance;
-      return dms.CreateDMSContract(beneficiary, data, Date.now(), { from: account });
-    }).then(function () {
+      return dms.CreateDMSContract(beneficiary, data, Date.now()/1000, {from: account});
+    }).then(function() {
       self.setStatus("Transaction complete!");
 
     }).catch(function (e) {
@@ -173,8 +172,8 @@ window.App = {
       return DMS.getExpirationTime.call(sender);
     }).then(function (value) {
       console.log("resolved getExpirationTime " + value);
-      var lastHeartbeat = new Date(value * 1000);
-      console.log(lastHeartbeat);
+      var lastHeartbeat = new Date((value * 1000) - 30);
+      console.log("last heartbeat date value" + lastHeartbeat);
       heatbeat_time_element.innerHTML = lastHeartbeat.toString();;
     }).catch(function (e) {
       heatbeat_time_element.innerHTML = "Entry not found";
@@ -205,8 +204,6 @@ window.App = {
     });
   }
 };
-
-
 
 window.addEventListener('load', function () {
   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
