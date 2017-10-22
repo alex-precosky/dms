@@ -40,6 +40,7 @@ window.App = {
       account = accounts[0];
 
       self.refreshBalance();
+      self.readEvents();
     });
   },
 
@@ -52,7 +53,8 @@ window.App = {
     var self = this;
 
     var meta;
-    MetaCoin.deployed().then(function(instance) {
+    
+    var deployed = MetaCoin.deployed().then(function(instance) {
       meta = instance;
       return meta.getBalance.call(account, {from: account});
     }).then(function(value) {
@@ -63,19 +65,30 @@ window.App = {
       self.setStatus("Error getting balance; see log.");
     });
   },
+  
+  readEvents: function() {
+
+    MetaCoin.deployed().then(function (instance) {
+      var events = instance.allEvents({fromBlock: 0, toBlock: 'latest'});
+      events.watch(function(error, result){
+        console.log(result);
+      });
+    });
+  },
 
   sendCoin: function() {
     var self = this;
 
     var amount = parseInt(document.getElementById("amount").value);
     var receiver = document.getElementById("receiver").value;
+    var note = document.getElementById("note").value;
 
     this.setStatus("Initiating transaction... (please wait)");
 
     var meta;
-    MetaCoin.deployed().then(function(instance) {
+    var deployed = MetaCoin.deployed().then(function(instance) {
       meta = instance;
-      return meta.sendCoin(receiver, amount, {from: account});
+      return meta.sendCoin(receiver, amount, note, {from: account});
     }).then(function() {
       self.setStatus("Transaction complete!");
       self.refreshBalance();
