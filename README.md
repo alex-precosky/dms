@@ -17,7 +17,7 @@ TODO
 
 ## Flowchart
 
-![Dead Man's Switch Flowchart](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Dead Man's Switch Flowchart](https://github.com/deadmenswitch/dms/blob/master/flowchart/dms_flowchart.png?raw=true)
 
 ## Requirements
 
