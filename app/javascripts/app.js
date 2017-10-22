@@ -158,6 +158,7 @@ window.App = {
       console.log("catch getDataFromAddress");
       console.log(e);
       self.setStatus(e);
+      message_element.innerHTML = "Your friend is not dead yet";
     });
   },
 
@@ -171,12 +172,12 @@ window.App = {
       DMS = instance;
       return DMS.getExpirationTime.call(sender);
     }).then(function (value) {
-      console.log("resolved getExpirationTime");
+      console.log("resolved getExpirationTime " + value);
       var lastHeartbeat = new Date(value * 1000);
       console.log(lastHeartbeat);
-      heatbeat_time_element = document.getElementById("heartbeat");
       heatbeat_time_element.innerHTML = lastHeartbeat.toString();;
     }).catch(function (e) {
+      heatbeat_time_element.innerHTML = "Entry not found";
       console.log("catch getExpirationTime");
       console.log(e);
       self.setStatus(e);
