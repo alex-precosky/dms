@@ -64,7 +64,8 @@ window.App = {
 	   timeleft_element.innerHTML = "hi";
        	  return DMS.getExpirationTime.call();}).then(function(value) {
        	      var timeleft_element = document.getElementById("timeleft");
-       	      timeleft_element.innerHTML = value.valueOf();
+	      var d = new Date(value.valueOf()*1000);
+       	      timeleft_element.innerHTML = d.toString();
        	      }).catch(function(e) {
        		  console.log(e);
        		  self.setStatus(e);
@@ -99,7 +100,7 @@ window.App = {
     var DMS;
     DMSContract.deployed().then(function(instance) {
       DMS = instance;
-      return DMS.kick( Date.now() + 30, {from: account});
+      return DMS.kick( Date.now()/1000 + 30, {from: account});
     }).then(function() {
       self.setStatus("Kick complete!");
 	self.refreshTimeLeft();
@@ -122,7 +123,7 @@ window.App = {
 
     DMSContract.deployed().then(function(instance) {
       dms = instance;
-      return dms.CreateDMSContract(beneficiary, data, Date.now(), {from: account});
+      return dms.CreateDMSContract(beneficiary, data, Date.now()/1000, {from: account});
     }).then(function() {
       self.setStatus("Transaction complete!");
 
