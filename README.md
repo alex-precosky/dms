@@ -50,7 +50,7 @@ If everthing went well (you can see a few log lines at testrpc output) you can s
 npm run dev
 ```
 
-Now you should see these folling lines
+Now you should see these following lines
 ```
 Project is running at http://localhost:8080/
 ...
