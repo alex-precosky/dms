@@ -8,12 +8,11 @@
 <body>
   <img src="dmslogo.png">
   <h2>Input the sender's address to read their secret upon their death</h2>
-  <input type="text" id="sender" /><button id="send" onclick="App.readMessage()">Read</button>
+  <input type="text" id="sender" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"/><button id="send" onclick="App.readMessage()">Read</button>
 
   <div>
     <h3>Message</h3>
-    <textarea id="message">
-      {{This is the secret}}
+    <textarea id="message" cols="50">
     </textarea>
     <br />
     <b>Last Heartbeat:</b> <span id="heartbeat"></span>
