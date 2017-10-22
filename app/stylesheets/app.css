@@ -5,6 +5,8 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.Center {text-align:center;}
+
 label {
   display: inline-block;
   width: 100px;
@@ -50,3 +52,8 @@ h3 {
 .hint {
   color: #666;
 }
+
+body {
+  text-align: center;
+}
+
