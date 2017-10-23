@@ -75,7 +75,11 @@ Done!
 
 ## Screenshots
 
- ![Creating an entry in the smart contract](https://github.com/alex-precosky/dms/blob/master/screenshots/create.jpg)
+ ![Creating an entry in the smart contract](https://github.com/alex-precosky/dms/blob/master/screenshots/create.jpg?raw=true)
+ ![Paying for entry](https://github.com/alex-precosky/dms/blob/master/screenshots/create2.jpg?raw=true)
+ ![Kicking the timer](https://github.com/alex-precosky/dms/blob/master/screenshots/kick.jpg?raw=true)
+ ![Not Dead](https://github.com/alex-precosky/dms/blob/master/screenshots/not_dead.jpg?raw=true)
+ ![Reading the secret after death](https://github.com/alex-precosky/dms/blob/master/screenshots/read.jpg?raw=true)
 
 ## License
 
