@@ -73,6 +73,10 @@ Go to your web browser and access the accress http://localhost:8080/create.html 
  
 Done!
 
+## Screenshots
+
+ ![Creating an entry in the smart contract](https://github.com/deadmenswitch/dms/blob/master/screenshots/create.jpg?raw=true)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
