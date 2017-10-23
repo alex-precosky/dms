@@ -75,7 +75,7 @@ Done!
 
 ## Screenshots
 
- ![Creating an entry in the smart contract](https://github.com/deadmenswitch/dms/blob/master/screenshots/create.jpg?raw=true)
+ ![Creating an entry in the smart contract](https://github.com/deadmenswitch/dms/screenshots/create.jpg?raw=true)
 
 ## License
 
